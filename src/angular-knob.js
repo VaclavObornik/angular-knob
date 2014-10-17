@@ -15,6 +15,11 @@ angular.module('ui.knob', [])
                 var knob = scope.$eval(attrs.knobData);
                 var $elem = angular.element(elem);
 
+                var updateValue = function () {
+                  knob = scope.$eval(attrs.knobData);
+                  $elem.val(knob).change();
+                };
+
                 var renderKnob = function () {
                     knob = scope.$eval(attrs.knobData);
 
@@ -32,6 +37,7 @@ angular.module('ui.knob', [])
                         }
                     }
                     angular.element(elem).knob(opts);
+                    updateValue();
                 };
 
                 var updateMax = function updateMax() {
@@ -44,8 +50,7 @@ angular.module('ui.knob', [])
                 };
 
                 scope.$watch(attrs.knobData, function () {
-                    knob = scope.$eval(attrs.knobData);
-                    $elem.val(knob).change();
+                  updateValue();
                 });
 
                 scope.$watch(attrs.knobMax, function () {
